@@ -19,6 +19,18 @@ bool is_equal(std::vector<T> const &v1, std::vector<T> const &v2)
             std::equal(v1.begin(), v1.end(), v2.begin()));
 }
 
+namespace combinatorics {
+
+// Return all n-length subsets of input vector
+//
+//
+template<typename T>
+std::vector<std::vector<T>> combinations(int n, std::vector<T>) {
+    
+}
+
+}
+
 namespace lisp {
 
 // Create a list of tokens
