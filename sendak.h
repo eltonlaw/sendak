@@ -9,6 +9,9 @@
 
 namespace sendak {
 
+// Vector Equality
+//
+// Copied from: https://www.techiedelight.com/check-two-vectors-equal-cpp/
 template<typename T>
 bool is_equal(std::vector<T> const &v1, std::vector<T> const &v2)
 {
@@ -18,7 +21,10 @@ bool is_equal(std::vector<T> const &v1, std::vector<T> const &v2)
 
 namespace lisp {
 
-/* create a list of tokens */
+// Create a list of tokens
+//
+// Ascii representing some lisp code is parsed into 1d vector of strings
+// representing tokenized symbols
 std::vector<std::string> tokenize(std::string source_code) {
     std::vector<std::string> tokens;
     std::string str;
@@ -59,13 +65,6 @@ std::vector<std::string> tokenize_file(std::string fp) {
     return tokenize(buffer.str());
 }
 
-void read_file(std::string fp) {
-    auto tokens = tokenize(fp);
+} // ns lisp
 
-    for (auto t: tokens) {
-        std::cout << t << " ";
-    }
-}
-
-} // ns parser
 } // ns sendak
