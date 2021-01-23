@@ -11,9 +11,12 @@
 
 namespace sendak {
 
-// Vector Equality
-//
-// Copied from: https://www.techiedelight.com/check-two-vectors-equal-cpp/
+/** Vector Equality
+ *
+ * NOTE: Both vectors have to be the same size to be considered equal.
+ *
+ * Copied from: https://www.techiedelight.com/check-two-vectors-equal-cpp/
+ */
 template<typename T>
 bool is_equal(std::vector<T> const &v1, std::vector<T> const &v2)
 {
@@ -100,10 +103,12 @@ T stack<T>::pop() {
 
 namespace lisp {
 
-// Create a list of tokens
-//
-// Ascii representing some lisp code is parsed into 1d vector of strings
-// representing tokenized symbols
+/** 
+ * Create a list of tokens
+ *
+ * Ascii representing some lisp code is parsed into 1d vector of strings
+ * representing tokenized symbols
+ */
 std::vector<std::string> tokenize(std::string source_code) {
     std::vector<std::string> tokens;
     std::string str;
