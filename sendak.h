@@ -1,7 +1,9 @@
 #pragma once
 
 #include <algorithm>
+#include <cstdlib>
 #include <iostream>
+#include <exception>
 #include <fstream>
 #include <sstream>
 #include <string>
@@ -17,6 +19,73 @@ bool is_equal(std::vector<T> const &v1, std::vector<T> const &v2)
 {
     return (v1.size() == v2.size() &&
             std::equal(v1.begin(), v1.end(), v2.begin()));
+}
+
+class out_of_bounds_exception: public std::exception {
+  virtual const char* what() const throw()
+  {
+    return "Out of Bounds";
+  }
+} out_of_bounds_ex;
+
+template<class T>
+class stack {
+    public:
+        stack();
+        stack(int);
+        ~stack();
+        bool is_empty();
+        void push(T);
+        T pop();
+    private:
+        void realloc_arr();
+        int top = 0;
+        int stack_size = 5;
+        T* arr;
+};
+
+template<class T>
+stack<T>::stack() {
+    arr = (T*) std::malloc(stack_size * sizeof(T));
+}
+
+template<class T>
+stack<T>::stack(int s) {
+    stack_size = s;
+    arr = (T*) std::malloc(stack_size * sizeof(T));
+}
+
+template<class T>
+stack<T>::~stack(){
+    std::free(arr);
+}
+
+template<class T>
+bool stack<T>::is_empty() {
+    return top == 0; 
+}
+
+template<class T>
+void stack<T>::realloc_arr() {
+    stack_size = stack_size * 2;
+    arr = (T*)realloc(arr, stack_size * sizeof(T));
+}
+
+template<class T>
+void stack<T>::push(T val) {
+    if (top == stack_size - 1) {
+        realloc_arr(); 
+    }
+    arr[top++] = val;
+}
+
+template<class T>
+T stack<T>::pop() {
+    if (--top == -1) {
+        throw out_of_bounds_ex;
+    } else {
+        return arr[top];
+    }
 }
 
 namespace lisp {
