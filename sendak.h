@@ -28,6 +28,16 @@ class out_of_bounds_exception: public std::exception {
   }
 } out_of_bounds_ex;
 
+/**
+ * Stack implements a last-in, first-out policy
+ *
+ * Passing a parameter to the initialization will overwrite the initial
+ * reserved stack size of 5. On underflow (calling pop on empty stack), throws
+ * an out of bounds exception. On overflow, reallocate current pointer to use
+ * double the currently used memory before assigning new value to end of stack.
+ *
+ * @tparam T type of data stored in stack
+ */
 template<class T>
 class stack {
     public:
