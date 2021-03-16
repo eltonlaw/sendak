@@ -43,29 +43,35 @@ class out_of_bounds_exception: public std::exception {
  */
 template<class T>
 class stack {
-    public:
-        stack();
-        stack(int);
-        ~stack();
-        bool is_empty();
-        void push(T);
-        T pop();
-    private:
-        void realloc_arr();
-        int top = 0;
-        int stack_size = 5;
-        T* arr;
+public:
+    stack();
+    stack(int);
+    ~stack();
+    bool is_empty();
+    void push(T);
+    int size();
+    T pop();
+private:
+    int _size = 0;
+    int top = 0;
+    int _capacity = 5;
+    T* arr;
 };
 
 template<class T>
 stack<T>::stack() {
-    arr = (T*) std::malloc(stack_size * sizeof(T));
+    arr = (T*) std::malloc(_capacity * sizeof(T));
 }
 
 template<class T>
 stack<T>::stack(int s) {
-    stack_size = s;
-    arr = (T*) std::malloc(stack_size * sizeof(T));
+    _capacity = s;
+    arr = (T*) std::malloc(_capacity * sizeof(T));
+}
+
+template<class T>
+stack<T>::size() {
+    return _size;
 }
 
 template<class T>
@@ -75,20 +81,15 @@ stack<T>::~stack(){
 
 template<class T>
 bool stack<T>::is_empty() {
-    return top == 0; 
-}
-
-template<class T>
-void stack<T>::realloc_arr() {
-    stack_size = stack_size * 2;
-    arr = (T*)realloc(arr, stack_size * sizeof(T));
+    return top == 0;
 }
 
 template<class T>
 void stack<T>::push(T val) {
-    if (top == stack_size - 1) {
-        realloc_arr(); 
-    }
+    // double the buffer size if no space to push
+    if (top == _capacity - 1)
+        arr = (T*) realloc(arr, (_capacity *= 2) * sizeof(T));
+    _size++;
     arr[top++] = val;
 }
 
@@ -97,13 +98,14 @@ T stack<T>::pop() {
     if (--top == -1) {
         throw out_of_bounds_ex;
     } else {
+        _size--;
         return arr[top];
     }
 }
 
 namespace lisp {
 
-/** 
+/**
  * Create a list of tokens
  *
  * Ascii representing some lisp code is parsed into 1d vector of strings
