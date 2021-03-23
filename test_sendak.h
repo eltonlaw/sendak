@@ -35,14 +35,14 @@ void test_stack_push_pop() {
     s.push(6);
     s.push(7);
     s.push(8);
-    assert(s.size == 4);
+    assert(s.size() == 4);
 
     assert(8 == s.pop());
     assert(7 == s.pop());
     assert(6 == s.pop());
     assert(5 == s.pop());
     assert(s.is_empty());
-    assert(0 == s.size);
+    assert(0 == s.size());
     try {
         s.pop();
     } catch (std::exception& e) {
@@ -52,13 +52,13 @@ void test_stack_push_pop() {
 
 void test_stack_size() {
     sendak::stack<int> s {};
-    assert(0 == s.size);
+    assert(0 == s.size());
     s.push(1);
     s.push(2);
     s.push(3);
-    assert(3 == s.size);
+    assert(3 == s.size());
     s.pop();
-    assert(2 == s.size);
+    assert(2 == s.size());
     s.push(8);
-    assert(3 == s.size);
+    assert(3 == s.size());
 }

@@ -70,7 +70,7 @@ stack<T>::stack(int s) {
 }
 
 template<class T>
-stack<T>::size() {
+int stack<T>::size() {
     return _size;
 }
 

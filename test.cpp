@@ -8,7 +8,8 @@ void run_tests() {
         test_is_equal_2,
         test_is_equal_3,
         test_parse_lisp_1,
-        test_stack,
+        test_stack_push_pop,
+        test_stack_size,
     };
     // Loop over each unit test, running it
     for (const auto& test_fn : test_fns) {
